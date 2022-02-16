@@ -22,4 +22,7 @@ You can now integrate all the differnt tabs sensors (listed above) and the decod
 - Sound Level Sensor (TBSL): The sensor has a range from 40dBA to 100dBA and if your sound level in your environment is outside of this range it will give you a error message by transmitting 255 - depending on the environment you may see strange spikes on your graphical representation because of this. For example if you are in a quiet office space and you are around the lower 40dBA limit you get thsi spikes to 255 everytime you fall below. Best practice is to filter these spikes, or if you know that you break the lower limit and not the upper one, convert the 255 to 0 and your spikes are at least shown in the right direction.
 - Healthy Home Sensor IAQ (TBHV), Sound Level Sensor (TBSL), Temperature & Humidity Sensor (TBHH) and Water Leak Sensor (TBWL): These sensors provide you with a error status if the sensors can not measure data inside their limits, so beware that there maybe strange spikes resulting because of this in your graphical representation.
 
+### 3D printed holder for the sensors
+We designed a little holder for the sensors, so you do not have to glue the sensor itself to the surface/object, but the holder instead and are able to change the battery in the future easily. You find a highly customizeable construction file (OpenSCAD) and STL files here: [LINK to prusaprinters](https://www.prusaprinters.org/prints/134670-browan-tabs-lorawan-sensor-holder)
+
 This decoder is licensed by the AGPL-3.0 License, please have a look at the LICENSE file.
