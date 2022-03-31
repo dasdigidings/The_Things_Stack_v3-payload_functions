@@ -1,7 +1,7 @@
 // Decoder for device payload encoder "PACKED"
 // copy&paste to TTN Console V3 -> Applications -> Payload formatters -> Uplink -> Javascript
 // modified for The Things Stack V3 by Caspar Armster, dasdigidings e.V.
-// ONLY USE THIS IF YOU HAVE ALL THE SENSORS (TEMP, HUMI, PRESSURE, LUX, UV AND PM) CONNECTED TO YOU SENSEBOX!
+// ONLY USE THIS IF YOU HAVE ALL THE SENSORS (TEMP, HUMI, PRESSURE, LUX, UV, PM AND SOUNDLEVELMETER) CONNECTED TO YOU SENSEBOX!
 // CONTACT US IF YOU CONNECT DIFFERENT SENSORS AND WE WILL HELP YOU ADJUST THE DECODER!
 
 function decodeUplink(input) {
@@ -13,7 +13,8 @@ function decodeUplink(input) {
     LUXSENSOR_ID = 'INSERT SENSOR-ID HERE',
     UVSENSOR_ID = 'INSERT SENSOR-ID HERE',
     PM10_ID = 'INSERT SENSOR-ID HERE',
-    PM25_ID = 'INSERT SENSOR-ID HERE';
+    PM25_ID = 'INSERT SENSOR-ID HERE',
+    SOUNDLEVELMETER_ID = 'INSERT SENSOR-ID HERE';
 
   var bytesToInt = function (bytes) {
     var i = 0;
@@ -85,6 +86,7 @@ function decodeUplink(input) {
         uint8,
         uint16,
         uint16,
+        uint16,
         uint16
       ],
       [
@@ -96,7 +98,8 @@ function decodeUplink(input) {
         UVSENSOR_ID + '_mod',
         UVSENSOR_ID + '_times',
         PM10_ID,
-        PM25_ID
+        PM25_ID,
+        SOUNDLEVELMETER_ID
       ]);
 
     // temp
@@ -121,10 +124,14 @@ function decodeUplink(input) {
     json.data[UVSENSOR_ID] = (json.data[UVSENSOR_ID + '_times'] * 255) + json.data[UVSENSOR_ID + '_mod'];
     delete json.data[UVSENSOR_ID + '_times'];
     delete json.data[UVSENSOR_ID + '_mod'];
-      
+     
+    //pm
     json.data[PM10_ID] = parseFloat(((json.data[PM10_ID] / 10)).toFixed(1));
       
     json.data[PM25_ID] = parseFloat(((json.data[PM25_ID] / 10)).toFixed(1));
+    
+    // soundlevel
+    json.data[SOUNDLEVELMETER_ID] = parseFloat(((json.data[SOUNDLEVELMETER_ID] / 10)).toFixed(1));
 
   } catch (e) {
     json = {
